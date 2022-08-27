@@ -1,0 +1,5 @@
+export const ADD_TO_NOTE = "ADD_TO_NOTE"
+export const DELETE_DATA = "DELETE_DATA"
+export const UPDATED_TITLE  = "UPDATED_TITLE"
+export const UPDATED_DESCRIPTION  = "UPDATED_DESCRIPTION"
+export const CLEAR_ALL_CARED = "CLEAR_ALL_CARED"
