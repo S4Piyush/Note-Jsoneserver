@@ -15,18 +15,16 @@ function Note() {
 
     const getdata = useSelector((state) => state.addtonotereducer.note);
 
-    const [search,setsearch] = useState()
+    const [search, setsearch] = useState()
 
-    const [updatenote, setUpdatenote]=useState()
+    const [updatenote, setUpdatenote] = useState()
 
-    const [alldata,setalldata] = useState()
+    const [alldata, setalldata] = useState()
 
     const getData = async () => {
-    const data = await axios.get(`http://localhost:8000/piyush`)
-    setalldata(data.data)
-    }   
-
-
+        const data = await axios.get(`http://localhost:8000/piyush`)
+        setalldata(data.data)
+    }
     const searchdata = () => {
 
         let data = alldata;
@@ -39,29 +37,36 @@ function Note() {
             return data
         }
     }
-    
+
     useEffect(() => {
         getData()
-        
-    },[])   
 
-    const btndelete =  async (e,id) => {
+    }, [])
+
+    const btndelete = async (e, id) => {
         e.preventDefault()
         await axios.delete(`http://localhost:8000/piyush/${id}`,)
     }
 
-    const handelchangetitle = async (e,id,color) => {
-        setUpdatenote({ ...updatenote, id:id, data:color,[e.target.name]:e.target.value })
-        await axios.patch(`http://localhost:8000/piyush/${id}`,updatenote)
-        await getData()
-    }
-    const handeldiscription = async (e,id,color) => {
-        setUpdatenote({ ...updatenote, id:id, data:color,[e.target.name]:e.target.value })
-        await axios.patch(`http://localhost:8000/piyush/${id}`, updatenote)
+    const handelchangetitle = async (e, id, color) => {
+
+        // setUpdatenote({ ...updatenote, id: id, data: color, [e.target.name]: e.target.value })
+
+        await axios.patch(`http://localhost:8000/piyush/${id}`,{ ...updatenote, id: id, data: color, [e.target.name]: e.target.value })
         await getData()
     }
 
-        const clearscren = (e) => {
+
+    const handeldiscription = async (e, id, color) => {
+
+        // setUpdatenote({ ...updatenote, id: id, data: color, [e.target.name]: e.target.value })
+
+        await axios.patch(`http://localhost:8000/piyush/${id}`,{ ...updatenote, id: id, data: color, [e.target.name]: e.target.value })
+        await getData()
+
+    }
+
+    const clearscren = (e) => {
         e.preventDefault()
         setsearch('')
 
@@ -71,7 +76,7 @@ function Note() {
             <div className="row">
                 <h2>Notes</h2>
                 <div className="col-12 mt-3">
-                    <Form className="d-flex " >
+                    <Form className="d-flex ">
                         <Form.Control
                             type="search"
                             placeholder="Search"
@@ -93,20 +98,21 @@ function Note() {
                                 <div className='card-border' style={{ backgroundColor: data.color }}>
                                     <form>
                                         <div>
-                                            <input type="text" 
+                                            <input type="text"
                                                 placeholder='Title'
                                                 className='input input-text'
                                                 name='Title'
                                                 defaultValue={data.Title}
                                                 onBlur={(e) => setUpdatenote("")}
                                                 onChange={(e) => handelchangetitle(e, data.id, data.color)}
+
                                             />
                                         </div>
                                         <div>
                                             <textarea type="text"
                                                 placeholder='Tack a note...'
                                                 className='mt-3 input'
-                                                name='discription'  
+                                                name='discription'
                                                 rows="3"
                                                 defaultValue={data.discription}
                                                 onBlur={(e) => setUpdatenote("")}

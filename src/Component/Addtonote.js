@@ -8,7 +8,9 @@ import axios from "axios";
 
   function Addtonote() {
   const dispatch = useDispatch()
+
   const randem = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
   const inista = {
     id:"",
     Title:"",
@@ -19,7 +21,7 @@ import axios from "axios";
 
   const handelsubmit = async (e) => {
     e.preventDefault()
-    const newdata = { ...All,id:uuidv4(),color:randem }
+    const newdata = {...All,id:uuidv4(),color:randem}
    await axios.post(`http://localhost:8000/piyush`,newdata)
     // await props.notdata()
   }

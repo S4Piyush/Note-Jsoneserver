@@ -6,10 +6,13 @@
 .input{
     width: 100%;
     border: none !important;
-    /* outline: none; */ 
+    outline: none; 
+    background-color: transparent;
+    /* overflow-y: scroll; */
 }
 textarea{
     border: none !important;
+    resize: none;
 }
 .input-text{
     font-size: 25px;
